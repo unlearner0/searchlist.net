@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Multi Search Bar">
     <meta name="author" content="Jagadeesan">
-    <meta name="robots" content="search, ID">
-    <meta name="googlebot" content="search, ID">
-    <meta name="theme-color" content="#fffc00"> <!-- Theme color for Android -->
-    <meta name="msapplication-navbutton-color" content="#fffc00"> <!-- Theme color for Windows Mobile -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-
     <title>Multi-Search Bar</title>
     <style>
         body {
@@ -32,12 +23,6 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-        }
-
-        .page-description {
-            font-style: italic;
-            font-size: 18px;
-            margin-bottom: 20px;
         }
 
         .search-bar-container {
@@ -160,53 +145,27 @@
         </div>
 
         <div class="search-logos">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png" alt="Google Logo" id="googleLogo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Bing_Fluent_Logo.svg/800px-Bing_Fluent_Logo.svg.png" alt="Bing Logo" id="bingLogo">
-            <img src="https://i.pinimg.com/564x/7b/8e/f1/7b8ef10ce620786671b15b0704ec9c0a.jpg" alt="YouTube Logo" id="youtubeLogo">
+            <a href="https://www.google.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png" alt="Google Logo"></a>
+            <a href="https://www.bing.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Bing_Fluent_Logo.svg/800px-Bing_Fluent_Logo.svg.png" alt="Bing Logo"></a>
+            <a href="https://www.youtube.com" target="_blank"><img src="https://i.pinimg.com/564x/7b/8e/f1/7b8ef10ce620786671b15b0704ec9c0a.jpg" alt="YouTube Logo"></a>
         </div>
 
         <div class="next-page">
-            <button id="nextPageBtn">Next Page</button>
+            <button onclick="goToNextPage()">Next Page</button>
             <p>Click the button above to proceed to the next page.</p>
         </div>
     </div>
 
     <script>
-        document.getElementById("searchBtn").addEventListener("click", function() {
-            performSearch();
-        });
-
-        document.getElementById("searchInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                performSearch();
-            }
-        });
-
-        document.getElementById("googleLogo").addEventListener("click", function() {
-            window.location.href = "https://www.google.com";
-        });
-
-        document.getElementById("bingLogo").addEventListener("click", function() {
-            window.location.href = "https://www.bing.com";
-        });
-
-        document.getElementById("youtubeLogo").addEventListener("click", function() {
-            window.location.href = "https://www.youtube.com";
-        });
-
-        document.getElementById("nextPageBtn").addEventListener("click", function() {
-            window.location.href = "snap.html"; // Corrected file path
-        });
-
         function performSearch() {
             var searchTerm = document.getElementById("searchInput").value.trim();
             if (searchTerm !== "") {
                 if (searchTerm.startsWith("@g/")) {
-                    window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchTerm.substring(3));
+                    window.open("https://www.google.com/search?q=" + encodeURIComponent(searchTerm.substring(3)), '_blank');
                 } else if (searchTerm.startsWith("@b/")) {
-                    window.location.href = "https://www.bing.com/search?q=" + encodeURIComponent(searchTerm.substring(3));
+                    window.open("https://www.bing.com/search?q=" + encodeURIComponent(searchTerm.substring(3)), '_blank');
                 } else if (searchTerm.startsWith("@y/")) {
-                    window.location.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(searchTerm.substring(3));
+                    window.open("https://www.youtube.com/results?search_query=" + encodeURIComponent(searchTerm.substring(3)), '_blank');
                 } else {
                     alert("Please include one of the search engine prefixes: '@g/', '@b/', '@y/'");
                 }
@@ -214,6 +173,18 @@
                 alert("Please enter a search term.");
             }
         }
+
+        function goToNextPage() {
+            window.location.href = "snap.html"; // Replace with the correct path to the next page
+        }
+
+        document.getElementById("searchBtn").addEventListener("click", performSearch);
+
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                performSearch();
+            }
+        });
     </script>
 </body>
 </html>
