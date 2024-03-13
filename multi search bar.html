@@ -12,6 +12,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+
 
     <title>Multi-Search Bar</title>
     <style>
@@ -170,7 +172,8 @@
         </div>
     </div>
 
-    <script>
+    <script> <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
         document.getElementById("searchBtn").addEventListener("click", function() {
             performSearch();
         });
@@ -399,8 +402,21 @@ function updateMetaTags(title, description, keywords) {
 
 // Example usage:
 updateMetaTags("multi search bar", "Find your social media ID's and browse contents easily on this website.", "ID profile, search, website");
+function sanitizeInput(input) {
+    // Implement your sanitization logic here
+    return input.replace(/<script.*?>|<\/script>/gi, '');
+}
+var query = "SELECT * FROM users WHERE username = ? AND password = ?";
+db.query(query, [username, password], function(err, result) {
+    // Handle query result
+});
 
+var encryptedMessage = CryptoJS.AES.encrypt('Your secret message', 'Your secret key').toString();
+    console.log('Encrypted message:', encryptedMessage);
 
+    // Example of using CryptoJS for decryption
+    var decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, 'Your secret key').toString(CryptoJS.enc.Utf8);
+    console.log('Decrypted message:', decryptedMessage);
     </script>
 </body>
 </html>
