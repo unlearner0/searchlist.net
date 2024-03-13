@@ -311,6 +311,55 @@ document.getElementById("searchInput").addEventListener("keypress", function(eve
         example();
     }
 });
+// Function to save user search history to localStorage
+function saveSearchHistory(searchTerm) {
+    try {
+        const existingHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+        const updatedHistory = [...existingHistory, searchTerm];
+        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    } catch (error) {
+        console.error("Error saving search history locally:", error);
+    }
+}
+
+// Function to retrieve user search history from localStorage
+function getSearchHistory() {
+    try {
+        return JSON.parse(localStorage.getItem('searchHistory')) || [];
+    } catch (error) {
+        console.error("Error retrieving search history locally:", error);
+        return [];
+    }
+}
+
+// Example usage
+const searchTerm = "user entered search term";
+saveSearchHistory(searchTerm);
+
+const searchHistory = getSearchHistory();
+console.log("Search History:", searchHistory);
+// Set data in LocalStorage
+localStorage.setItem("key", "value");
+
+// Get data from LocalStorage
+var value = localStorage.getItem("key");
+
+// Remove data from LocalStorage
+localStorage.removeItem("key");
+
+// Clear all data from LocalStorage
+localStorage.clear();
+// Set data in SessionStorage
+sessionStorage.setItem("key", "value");
+
+// Get data from SessionStorage
+var value = sessionStorage.getItem("key");
+
+// Remove data from SessionStorage
+sessionStorage.removeItem("key");
+
+// Clear all data from SessionStorage
+sessionStorage.clear();
 
 
 </script>
