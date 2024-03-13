@@ -360,7 +360,21 @@ sessionStorage.removeItem("key");
 
 // Clear all data from SessionStorage
 sessionStorage.clear();
+// Update meta tags dynamically
+function updateMetaTags(title, description, keywords) {
+    document.title = title;
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', description);
+    }
+    var metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+        metaKeywords.setAttribute('content', keywords);
+    }
+}
 
+// Example usage:
+updateMetaTags("Insta searcher", "Find your social media ID's and browse contents easily on this website.", "ID profile, search, website");
 
 </script>
 </body>
