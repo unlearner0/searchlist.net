@@ -362,6 +362,21 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+// Update meta tags dynamically
+function updateMetaTags(title, description, keywords) {
+    document.title = title;
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', description);
+    }
+    var metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+        metaKeywords.setAttribute('content', keywords);
+    }
+}
+
+// Example usage:
+updateMetaTags("Search My ID Card", "Find your ID card easily on our website.", "ID card, search, website");
 
 
   </script>
