@@ -350,6 +350,19 @@ function updateMetaTags(title, description, keywords) {
 }
 
 }
+    // Redirect HTTP requests to HTTPS
+if (window.location.protocol !== 'https:') {
+    window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+}
+// Set HttpOnly and Secure flags for a cookie
+document.cookie = "name=value; HttpOnly; Secure";
+// Example Node.js middleware to set CORS headers
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://trusted-domain.com");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
   </script>
 </body>
