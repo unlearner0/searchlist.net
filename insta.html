@@ -3,379 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Instagram Search Page">
-    <meta name="keywords" content="instagram, search, social media">
-    <meta name="author" content="Jagadeesan">
-    <meta name="robots" content="search, ID">
-    <meta name="googlebot" content="search, ID">
+    <meta name="description" content="Snapchat Search Page">
+    <meta name="keywords" content="snapchat, search, social media">
+    <meta name="author" content="Your Name">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
     <meta name="theme-color" content="#fffc00"> <!-- Theme color for Android -->
     <meta name="msapplication-navbutton-color" content="#fffc00"> <!-- Theme color for Windows Mobile -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-
-    <title>Search my insta ID card</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Add Font Awesome library for icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"> <!-- Add Variable font stylesheet -->
+    <title>Multi-Search Bar</title>
     <style>
         body {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #a118a6, #8a1cb9, #5d21b6, #2b28b1, #0a2ab4, #0022b3, #0021b0); /* Instagram theme background */
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Fix scrolling */
-            color: #fff; /* Text color */
-        }
-
-        .logo {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff; /* Logo color */
-            font-size: 24px;
-            margin-top: 10px;
+            background-color: #f2f2f2;
+            text-align: center;
         }
 
         .container {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding-top: 60px; /* Added padding to accommodate the fixed logo */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .search-instructions {
-            text-align: center;
-            font-size: 14px;
+        .page-description {
+            font-style: italic;
+            font-size: 18px;
             margin-bottom: 20px;
         }
 
-        .search {
-            width: 65%; /* Adjusted search bar width */
+        .search-bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 3px 3px 10px #ccc, -3px -3px 10px #fff;
+        }
+
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        .instruction-list {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instruction-list li {
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .instruction-list li::before {
+            content: "\2022";  /* Bullet point */
+            color: #007bff;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .search-logos {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 20px;
+        }
+
+        .search-logos img {
+            width: 40px;
+            height: auto;
+            margin: 0 20px; /* Added spacing */
+            cursor: pointer;
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .search-logos img:hover {
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .next-page {
+            margin-top: 20px;
             margin-bottom: 20px;
-            position: relative; /* Added position relative */
         }
 
-        .searchTerm {
-            width: calc(100% - 50px); /* Adjusted width */
-            border: 1px solid #fff; /* White border color */
-            border-radius: 8px;
-            padding: 10px 40px 10px 10px; /* Adjusted padding */
-            font-size: 16px;
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
-        }
-
-        .searchTerm:focus {
-            border: 1px solid #fff; /* White border color when focused */
-        }
-
-        .btn {
-            position: absolute; /* Position absolute for the icon */
-            right: 0; /* Align to the right */
-            top: 0; /* Align to the top */
-            height: 40px;
-            width: 40px; /* Width of the icon button */
-            background: none;
+        .next-page button {
+            padding: 10px 20px;
             border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 14px;
             cursor: pointer;
-            outline: none;
+            box-shadow: 5px 5px 15px #aaa, -5px -5px 15px #fff;
         }
 
-        .btn .fa-search {
-            color: #fff; /* White color for the search icon */
-            font-size: 16px;
-        }
-
-        .nextButton {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .nextButton button {
-            padding: 10px 20px; /* Adjusted button padding */
-            border: 1px solid #fff; /* White border color */
-            background-color: #fff; /* White background color */
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color linear 0.1s;
-            font-size: 16px;
-            color: #000; /* Text color */
-        }
-
-        .nextButton button:hover {
-            background-color: rgb(240, 240, 240); /* Light gray hover color */
-        }
-
-        @media (max-width: 768px) {
-            .search {
-                width: 80%;
-            }
-
-            .nextButton button {
-                padding: 8px 16px;
-            }
+        .next-page button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-<div class="logo">
-    <i class="fa fa-instagram" aria-hidden="true" style="color: #fff;"></i> Intsa searcher
-</div>
+    <div class="container">
+        <div class="page-description"><h2>Multi-Search Bar!</h2></div>
+        
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." id="searchInput">
+                <button id="searchBtn">Search</button>
+            </div>
+            
+            <ul class="instruction-list">
+                <li>Type your query in the search bar above.</li>
+                <li>Click the search button or press Enter to perform the search.</li>
+                <li>Use <strong>@g/</strong> for Google, <strong>@b/</strong> for Bing, <strong>@y/</strong> for YouTube.</li>
+            </ul>
+        </div>
 
-<div class="container">
-    <div class="search-instructions">
-        <p>How to search:</p>
-        <ul>
-            <li>Type the exact ID with "@" (e.g., @username) to find a specific user.</li>
-            <li>Enter keywords to explore topics and users in general.</li>
-        </ul>
+        <div class="search-logos">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png" alt="Google Logo" id="googleLogo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Bing_Fluent_Logo.svg/800px-Bing_Fluent_Logo.svg.png" alt="Bing Logo" id="bingLogo">
+            <img src="https://i.pinimg.com/564x/7b/8e/f1/7b8ef10ce620786671b15b0704ec9c0a.jpg" alt="YouTube Logo" id="youtubeLogo">
+        </div>
+
+        <div class="next-page">
+            <button id="nextPageBtn">Next Page</button>
+            <p>Click the button above to proceed to the next page.</p>
+        </div>
     </div>
-    <div class="search">
-        <input type="text" class="searchTerm" id="searchInput" placeholder="Search...">
-        <button class="btn" id="searchBtn"><i class="fa fa-search"></i></button>
-    </div>
-</div>
 
-<div class="nextButton">
-    <button id="myButton">Next</button>
-</div>
+    <script>
+        document.getElementById("searchBtn").addEventListener("click", function() {
+            performSearch();
+        });
 
-<script>
-    document.getElementById("searchBtn").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent default link behavior
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                performSearch();
+            }
+        });
 
-        var searchTerm = document.getElementById("searchInput").value.trim();
-        if (searchTerm !== "") {
-            // Append parameters for specific search types: IDs, profile names, or mobile numbers
-            var searchUrl;
-            if (searchTerm.startsWith('@')) {
-                searchUrl = "https://www.instagram.com/" + encodeURIComponent(searchTerm.substring(1));
+        document.getElementById("googleLogo").addEventListener("click", function() {
+            window.location.href = "https://www.google.com";
+        });
+
+        document.getElementById("bingLogo").addEventListener("click", function() {
+            window.location.href = "https://www.bing.com";
+        });
+
+        document.getElementById("youtubeLogo").addEventListener("click", function() {
+            window.location.href = "https://www.youtube.com";
+        });
+
+        document.getElementById("nextPageBtn").addEventListener("click", function() {
+            window.location.href = "nextpage3.html";
+        });
+
+        function performSearch() {
+            var searchTerm = document.getElementById("searchInput").value.trim();
+            if (searchTerm !== "") {
+                if (searchTerm.startsWith("@g/")) {
+                    window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchTerm.substring(3));
+                } else if (searchTerm.startsWith("@b/")) {
+                    window.location.href = "https://www.bing.com/search?q=" + encodeURIComponent(searchTerm.substring(3));
+                } else if (searchTerm.startsWith("@y/")) {
+                    window.location.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(searchTerm.substring(3));
+                } else {
+                    alert("Please include one of the search engine prefixes: '@g/', '@b/', '@y/'");
+                }
             } else {
-                searchUrl = "https://www.instagram.com/explore/tags/" + encodeURIComponent(searchTerm);
+                alert("Please enter a search term.");
             }
-            window.location.href = searchUrl;
-        } else {
-            alert("Please enter a search term.");
         }
-    });
-
-    // Redirect to nextpage4.html when the "Next" button is clicked
-    document.getElementById("myButton").addEventListener("click", function() {
-        window.location.href = ""; // Redirect to nextpage4.html
-    });
-
-    // Redirect when pressing Enter key
-    document.getElementById("searchInput").addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            document.getElementById("searchBtn").click();
-        }
-    });
-
-    // Refresh page on scroll in mobiles
-    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isMobile) {
-        window.addEventListener('scroll', function() {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                window.location.href = window.location.href;
-            }
-        });
-    }
-    // Example Node.js middleware to set CORS headers
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://trusted-domain.com");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-// Redirect HTTP requests to HTTPS
-if (window.location.protocol !== 'https:') {
-    window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-}
-// Set HttpOnly and Secure flags for a cookie
-document.cookie = "name=value; HttpOnly; Secure";
-// Function to encrypt user search entries
-async function encryptSearchData(searchEntry, encryptionKey) {
-    const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Generate a random initialization vector
-    const encodedText = new TextEncoder().encode(searchEntry); // Convert search entry to byte array
-
-    const encryptedData = await window.crypto.subtle.encrypt(
-        {
-            name: "AES-GCM",
-            iv: iv
-        },
-        encryptionKey,
-        encodedText
-    );
-
-    return {
-        ciphertext: encryptedData,
-        iv: iv
-    };
-}
-
-// Example usage
-async function example() {
-    const encryptionKey = await getKeyFromServer(); // Fetch encryption key from the server securely
-    const searchEntry = document.getElementById("searchInput").value.trim();
-
-    if (searchEntry) {
-        const encryptedSearchData = await encryptSearchData(searchEntry, encryptionKey);
-        console.log("Encrypted search data:", encryptedSearchData);
-
-        // Now you can send encryptedSearchData to your server
-    } else {
-        console.error("Please enter a search entry.");
-    }
-}
-
-// Replace this function with your actual implementation to fetch the encryption key from the server securely
-async function getKeyFromServer() {
-    // Fetch encryption key from the server using a secure method (e.g., HTTPS)
-    // and return it
-    return await fetch("/getEncryptionKey")
-        .then(response => response.json())
-        .then(data => data.encryptionKey)
-        .catch(error => {
-            console.error("Error fetching encryption key:", error);
-            return null;
-        });
-}
-
-// Execute example function when a search button is clicked or the Enter key is pressed
-document.getElementById("searchBtn").addEventListener("click", example);
-document.getElementById("searchInput").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        example();
-    }
-});
-    // Function to encrypt user search entries
-async function encryptSearchData(searchEntry, encryptionKey) {
-    const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Generate a random initialization vector
-    const encodedText = new TextEncoder().encode(searchEntry); // Convert search entry to byte array
-
-    const encryptedData = await window.crypto.subtle.encrypt(
-        {
-            name: "AES-GCM",
-            iv: iv
-        },
-        encryptionKey,
-        encodedText
-    );
-
-    return {
-        ciphertext: encryptedData,
-        iv: iv
-    };
-}
-
-// Example usage
-async function example() {
-    const encryptionKey = await getKeyFromServer(); // Fetch encryption key from the server securely
-    const searchEntry = document.getElementById("searchInput").value.trim();
-
-    if (searchEntry) {
-        const encryptedSearchData = await encryptSearchData(searchEntry, encryptionKey);
-        console.log("Encrypted search data:", encryptedSearchData);
-
-        // Now you can send encryptedSearchData to your server
-    } else {
-        console.error("Please enter a search entry.");
-    }
-}
-
-// Replace this function with your actual implementation to fetch the encryption key from the server securely
-async function getKeyFromServer() {
-    // Fetch encryption key from the server using a secure method (e.g., HTTPS)
-    // and return it
-    return await fetch("/getEncryptionKey")
-        .then(response => response.json())
-        .then(data => data.encryptionKey)
-        .catch(error => {
-            console.error("Error fetching encryption key:", error);
-            return null;
-        });
-}
-
-// Execute example function when a search button is clicked or the Enter key is pressed
-document.getElementById("searchBtn").addEventListener("click", example);
-document.getElementById("searchInput").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        example();
-    }
-});
-// Function to save user search history to localStorage
-function saveSearchHistory(searchTerm) {
-    try {
-        const existingHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        const updatedHistory = [...existingHistory, searchTerm];
-        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-    } catch (error) {
-        console.error("Error saving search history locally:", error);
-    }
-}
-
-// Function to retrieve user search history from localStorage
-function getSearchHistory() {
-    try {
-        return JSON.parse(localStorage.getItem('searchHistory')) || [];
-    } catch (error) {
-        console.error("Error retrieving search history locally:", error);
-        return [];
-    }
-}
-
-// Example usage
-const searchTerm = "user entered search term";
-saveSearchHistory(searchTerm);
-
-const searchHistory = getSearchHistory();
-console.log("Search History:", searchHistory);
-// Set data in LocalStorage
-localStorage.setItem("key", "value");
-
-// Get data from LocalStorage
-var value = localStorage.getItem("key");
-
-// Remove data from LocalStorage
-localStorage.removeItem("key");
-
-// Clear all data from LocalStorage
-localStorage.clear();
-// Set data in SessionStorage
-sessionStorage.setItem("key", "value");
-
-// Get data from SessionStorage
-var value = sessionStorage.getItem("key");
-
-// Remove data from SessionStorage
-sessionStorage.removeItem("key");
-
-// Clear all data from SessionStorage
-sessionStorage.clear();
-// Update meta tags dynamically
-function updateMetaTags(title, description, keywords) {
-    document.title = title;
-    var metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-        metaDescription.setAttribute('content', description);
-    }
-    var metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (metaKeywords) {
-        metaKeywords.setAttribute('content', keywords);
-    }
-}
-
-// Example usage:
-updateMetaTags("Insta searcher", "Find your social media ID's and browse contents easily on this website.", "ID profile, search, website");
-
-</script>
+    </script>
 </body>
 </html>
