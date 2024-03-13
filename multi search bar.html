@@ -1,1 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Snapchat Search Page">
+    <meta name="keywords" content="snapchat, search, social media">
+    <meta name="author" content="Your Name">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="theme-color" content="#fffc00"> <!-- Theme color for Android -->
+    <meta name="msapplication-navbutton-color" content="#fffc00"> <!-- Theme color for Windows Mobile -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multi-Search Bar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .page-description {
+            font-style: italic;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 3px 3px 10px #ccc, -3px -3px 10px #fff;
+        }
+
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        .instruction-list {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instruction-list li {
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .instruction-list li::before {
+            content: "\2022";  /* Bullet point */
+            color: #007bff;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .search-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .search-logos img {
+            width: 40px;
+            height: auto;
+            margin: 0 20px; /* Added spacing */
+            cursor: pointer;
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .search-logos img:hover {
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .next-page {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .next-page button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 5px 5px 15px #aaa, -5px -5px 15px #fff;
+        }
+
+        .next-page button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-description"><h2>Multi-Search Bar!</h2></div>
+        
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." id="searchInput">
+                <button id="searchBtn">Search</button>
+            </div>
+            
+            <ul class="instruction-list">
+                <li>Type your query in the search bar above.</li>
+                <li>Click the search button or press Enter to perform the search.</li>
+                <li>Use <strong>@g/</strong> for Google, <strong>@b/</strong> for Bing, <strong>@y/</strong> for YouTube.</li>
+            </ul>
+        </div>
+
+        <div class="search-logos">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png" alt="Google Logo" id="googleLogo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Bing_Fluent_Logo.svg/800px-Bing_Fluent_Logo.svg.png" alt="Bing Logo" id="bingLogo">
+            <img src="https://i.pinimg.com/564x/7b/8e/f1/7b8ef10ce620786671b15b0704ec9c0a.jpg" alt="YouTube Logo" id="youtubeLogo">
+        </div>
+
+        <div class="next-page">
+            <button id="nextPageBtn">Next Page</button>
+            <p>Click the button above to proceed to the next page.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("searchBtn").addEventListener("click", function() {
+            performSearch();
+        });
+
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                performSearch();
+            }
+        });
+
+        document.getElementById("googleLogo").addEventListener("click", function() {
+            window.location.href = "https://www.google.com";
+        });
+
+        document.getElementById("bingLogo").addEventListener("click", function() {
+            window.location.href = "https://www.bing.com";
+        });
+
+        document.getElementById("youtubeLogo").addEventListener("click", function() {
+            window.location.href = "https://www.youtube.com";
+        });
+
+        document.getElementById("nextPageBtn").addEventListener("click", function() {
+            window.location.href = "nextpage3.html";
+        });
+
+        function performSearch() {
+            var searchTerm = document.getElementById("searchInput").value.trim();
+            if (searchTerm !== "") {
+                if (searchTerm.startsWith("@g/")) {
+                    window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchTerm.substring(3));
+                } else if (searchTerm.startsWith("@b/")) {
+                    window.location.href = "https://www.bing.com/search?q=" + encodeURIComponent(searchTerm.substring(3));
+                } else if (searchTerm.startsWith("@y/")) {
+                    window.location.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(searchTerm.substring(3));
+                } else {
+                    alert("Please include one of the search engine prefixes: '@g/', '@b/', '@y/'");
+                }
+            } else {
+                alert("Please enter a search term.");
+            }
+        }
+    </script>
+</body>
+</html>
