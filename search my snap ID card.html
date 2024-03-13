@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Snapchat Search Page">
+    <meta name="keywords" content="snapchat, search, social media">
+    <meta name="author" content="Jagadeesan">
+    <meta name="robots" content="search, ID">
+    <meta name="googlebot" content="search, ID">
+    <meta name="theme-color" content="#fffc00"> <!-- Theme color for Android -->
+    <meta name="msapplication-navbutton-color" content="#fffc00"> <!-- Theme color for Windows Mobile -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>search my snap ID card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Add Font Awesome library for icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"> <!-- Add Variable font stylesheet -->
+    <style>
+        body {
+            background: #fffc00; /* Snapchat yellow background color */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Fix horizontal scrolling */
+        }
+
+        .logo {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #000; /* Logo color */
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding-top: 50px; /* Adjusted padding to accommodate the fixed logo */
+        }
+
+        .search-instructions {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #000; /* Text color */
+        }
+
+        .search {
+            width: 80%;
+            position: relative; /* Added position relative */
+            margin-bottom: 20px;
+        }
+
+        .searchTerm {
+            width: 100%; /* Adjusted width to fill the container */
+            border: 1px solid #000; /* Dark black border color */
+            border-radius: 8px;
+            padding: 10px 40px 10px 10px; /* Adjusted padding to accommodate the icon */
+            font-size: 16px;
+            outline: none;
+            color: #000; /* Text color */
+            box-sizing: border-box; /* Added box-sizing to include padding in width */
+        }
+
+        .searchTerm:focus {
+            border: 1px solid #333; /* Darker border color when focused */
+        }
+
+        .btn {
+            position: absolute; /* Added position absolute */
+            top: 50%; /* Adjusted top position */
+            right: 10px; /* Adjusted right position */
+            transform: translateY(-50%); /* Center vertically */
+            height: 40px;
+            width: 40px; /* Adjusted width */
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .btn i {
+            font-family: 'Material Symbols Outlined';
+            font-size: 20px;
+            color: #666; /* Gray color */
+        }
+
+        /* Styles for the "Next" button */
+        .nextButton {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nextButton button {
+            padding: 10px 20px;
+            border: 1px solid #000; /* Dark black border color */
+            background-color: #000; /* Dark black background color */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color linear 0.1s;
+            font-size: 16px;
+            color: #fff; /* Text color */
+        }
+
+        .nextButton button:hover {
+            background-color: rgb(20, 20, 20); /* Darker black hover color */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-top: 60px; /* Adjusted padding for smaller screens */
+            }
+
+            .search {
+                width: 90%; /* Adjusted width for smaller screens */
+            }
+
+            .nextButton button {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <i class="fa fa-snapchat" aria-hidden="true" style="color: #000;"></i> Search my Snap
+</div>
+
+<div class="container">
+    <div class="search-instructions">
+        <p>How to search:</p>
+        <ul>
+            <li>Type the exact ID with "@" (e.g., @username) to find a specific user.</li>
+            <li>Enter keywords to explore topics and users in general.</li>
+        </ul>
+    </div>
+    <div class="search">
+        <input type="text" class="searchTerm" id="searchInput" placeholder="Search...">
+        <button class="btn" id="searchBtn"><i class="material-symbols-outlined">&#xe8b6;</i></button>
+    </div>
+</div>
+
+<div class="nextButton">
+    <button id="myButton">Next</button>
+</div>
+
+<script>
+    // Function to handle search button click and Enter key press
+    function handleSearch() {
+        var searchTerm = document.getElementById("searchInput").value.trim();
+        if (searchTerm !== "") {
+            // Append parameters for specific search types: IDs, profile names, or mobile numbers
+            if (searchTerm.startsWith('@')) {
+                window.location.href = "https://www.snapchat.com/add/" + encodeURIComponent(searchTerm.substring(1));
+            } else {
+                window.location.href = "https://www.snapchat.com/explore/" + encodeURIComponent(searchTerm);
+            }
+        } else {
+            alert("Please enter a search term.");
+        }
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", handleSearch);
+
+    document.getElementById("searchInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            handleSearch();
+        }
+    });
+
+    // Redirect to explore page when the "Next" button is clicked
+    document.getElementById("myButton").addEventListener("click", function() {
+        window.location.href = "nextpage4.html"; // Redirect to explore page
+    });
+  // Dynamically update meta tags for SEO
+function updateMetaTags(title, description, keywords) {
+    document.title = title;
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', description);
+    }
+    var metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+        metaKeywords.setAttribute('content', keywords);
+    }
+}
+// Set a cookie with expiration date
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+// Get a cookie by name
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Delete a cookie by name
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
+// Preventing clickjacking
+if (top != self) {
+    top.location.href = self.location.href;
+}
+
+// Preventing XSS (Cross-Site Scripting) attacks by sanitizing input
+function sanitizeInput(input) {
+    // Implement your sanitization logic here
+    return input.replace(/<script.*?>|<\/script>/gi, '');
+}
+
+</script>
+</body>
+</html>
