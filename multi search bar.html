@@ -11,6 +11,8 @@
     <meta name="msapplication-navbutton-color" content="#fffc00"> <!-- Theme color for Windows Mobile -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
     <title>Multi-Search Bar</title>
     <style>
         body {
@@ -211,6 +213,76 @@
                 alert("Please enter a search term.");
             }
         }
+        // Set HttpOnly and Secure flags for a cookie
+document.cookie = "name=value; HttpOnly; Secure";
+
+        // Redirect HTTP requests to HTTPS
+if (window.location.protocol !== 'https:') {
+    window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+}
+// Example Node.js middleware to set CORS headers
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://trusted-domain.com");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+        // Function to encrypt user search entries
+async function encryptSearchData(searchEntry, encryptionKey) {
+    const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Generate a random initialization vector
+    const encodedText = new TextEncoder().encode(searchEntry); // Convert search entry to byte array
+
+    const encryptedData = await window.crypto.subtle.encrypt(
+        {
+            name: "AES-GCM",
+            iv: iv
+        },
+        encryptionKey,
+        encodedText
+    );
+
+    return {
+        ciphertext: encryptedData,
+        iv: iv
+    };
+}
+
+// Example usage
+async function example() {
+    const encryptionKey = await getKeyFromServer(); // Fetch encryption key from the server securely
+    const searchEntry = document.getElementById("searchInput").value.trim();
+
+    if (searchEntry) {
+        const encryptedSearchData = await encryptSearchData(searchEntry, encryptionKey);
+        console.log("Encrypted search data:", encryptedSearchData);
+
+        // Now you can send encryptedSearchData to your server
+    } else {
+        console.error("Please enter a search entry.");
+    }
+}
+
+// Replace this function with your actual implementation to fetch the encryption key from the server securely
+async function getKeyFromServer() {
+    // Fetch encryption key from the server using a secure method (e.g., HTTPS)
+    // and return it
+    return await fetch("/getEncryptionKey")
+        .then(response => response.json())
+        .then(data => data.encryptionKey)
+        .catch(error => {
+            console.error("Error fetching encryption key:", error);
+            return null;
+        });
+}
+
+// Execute example function when a search button is clicked or the Enter key is pressed
+document.getElementById("searchBtn").addEventListener("click", example);
+document.getElementById("searchInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        example();
+    }
+});
+
+
     </script>
 </body>
 </html>
