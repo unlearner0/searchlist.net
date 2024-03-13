@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Snapchat Search Page">
-    <meta name="keywords" content="snapchat, search, social media">
-    <meta name="author" content="Your Name">
+    <meta name="description" content="multi search bar">
+  <meta name="author" content="Jagadeesan"> <meta name="robots" content="search, ID"> <meta name="googlebot" content="search, ID">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <meta name="theme-color" content="#fffc00"> <!-- Theme color for Android -->
@@ -212,6 +211,56 @@
                 alert("Please enter a search term.");
             }
         }
+        // Dynamically update meta tags for SEO
+function updateMetaTags(title, description, keywords) {
+    document.title = title;
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', description);
+    }
+    var metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+        metaKeywords.setAttribute('content', keywords);
+    }
+}
+// Set a cookie with expiration date
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+// Get a cookie by name
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Delete a cookie by name
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
+// Preventing clickjacking
+if (top != self) {
+    top.location.href = self.location.href;
+}
+
+// Preventing XSS (Cross-Site Scripting) attacks by sanitizing input
+function sanitizeInput(input) {
+    // Implement your sanitization logic here
+    return input.replace(/<script.*?>|<\/script>/gi, '');
+}
+
     </script>
 </body>
 </html>
