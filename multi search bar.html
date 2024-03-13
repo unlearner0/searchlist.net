@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="multi search bar">
+    <meta name="description" content="Multi Search Bar">
     <meta name="author" content="Jagadeesan">
     <meta name="robots" content="search, ID">
     <meta name="googlebot" content="search, ID">
@@ -11,6 +11,9 @@
     <meta name="msapplication-navbutton-color" content="#fffc00"> <!-- Theme color for Windows Mobile -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar style for iOS -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+
     <title>Multi-Search Bar</title>
     <style>
         body {
@@ -168,6 +171,7 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
         document.getElementById("searchBtn").addEventListener("click", function() {
             performSearch();
@@ -211,6 +215,147 @@
                 alert("Please enter a search term.");
             }
         }
+
+        // Function to encrypt user search entries
+        async function encryptSearchData(searchEntry, encryptionKey) {
+            const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Generate a random initialization vector
+            const encodedText = new TextEncoder().encode(searchEntry); // Convert search entry to byte array
+
+            const encryptedData = await window.crypto.subtle.encrypt(
+                {
+                    name: "AES-GCM",
+                    iv: iv
+                },
+                encryptionKey,
+                encodedText
+            );
+
+            return {
+                ciphertext: encryptedData,
+                iv: iv
+            };
+        }
+
+        // Example usage
+        async function example() {
+            const encryptionKey = await getKeyFromServer(); // Fetch encryption key from the server securely
+            const searchEntry = document.getElementById("searchInput").value.trim();
+
+            if (searchEntry) {
+                const encryptedSearchData = await encryptSearchData(searchEntry, encryptionKey);
+                console.log("Encrypted search data:", encryptedSearchData);
+
+                // Now you can send encryptedSearchData to your server
+            } else {
+                console.error("Please enter a search entry.");
+            }
+        }
+
+        // Replace this function with your actual implementation to fetch the encryption key from the server securely
+        async function getKeyFromServer() {
+            // Fetch encryption key from the server using a secure method (e.g., HTTPS)
+            // and return it
+            return await fetch("/getEncryptionKey")
+                .then(response => response.json())
+                .then(data => data.encryptionKey)
+                .catch(error => {
+                    console.error("Error fetching encryption key:", error);
+                    return null;
+                });
+        }
+
+        // Execute example function when a search button is clicked or the Enter key is pressed
+        document.getElementById("searchBtn").addEventListener("click", example);
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                example();
+            }
+        });
+
+        // Function to save user search history to localStorage
+        function saveSearchHistory(searchTerm) {
+            try {
+                const existingHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                const updatedHistory = [...existingHistory, searchTerm];
+                localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+            } catch (error) {
+                console.error("Error saving search history locally:", error);
+            }
+        }
+
+        // Function to retrieve user search history from localStorage
+        function getSearchHistory() {
+            try {
+                return JSON.parse(localStorage.getItem('searchHistory')) || [];
+            } catch (error) {
+                console.error("Error retrieving search history locally:", error);
+                return [];
+            }
+        }
+
+        // Example usage
+        const searchTerm = "user entered search term";
+        saveSearchHistory(searchTerm);
+
+        const searchHistory = getSearchHistory();
+        console.log("Search History:", searchHistory);
+
+        // Set data in LocalStorage
+        localStorage.setItem("key", "value");
+
+        // Get data from LocalStorage
+        var value = localStorage.getItem("key");
+
+        // Remove data from LocalStorage
+        localStorage.removeItem("key");
+
+        // Clear all data from LocalStorage
+        localStorage.clear();
+
+        // Set data in SessionStorage
+        sessionStorage.setItem("key", "value");
+
+        // Get data from SessionStorage
+        var value = sessionStorage.getItem("key");
+
+        // Remove data from SessionStorage
+        sessionStorage.removeItem("key");
+
+        // Clear all data from SessionStorage
+        sessionStorage.clear();
+
+        // Update meta tags dynamically
+        function updateMetaTags(title, description, keywords) {
+            document.title = title;
+            var metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.setAttribute('content', description);
+            }
+            var metaKeywords = document.querySelector('meta[name="keywords"]');
+            if (metaKeywords) {
+                metaKeywords.setAttribute('content', keywords);
+            }
+        }
+
+        // Example usage:
+        updateMetaTags("multi search bar", "Find your social media ID's and browse contents easily on this website.", "ID profile, search, website");
+
+        function sanitizeInput(input) {
+            // Implement your sanitization logic here
+            return input.replace(/<script.*?>|<\/script>/gi, '');
+        }
+
+        var query = "SELECT * FROM users WHERE username = ? AND password = ?";
+        db.query(query, [username, password], function(err, result) {
+            // Handle query result
+        });
+
+        var encryptedMessage = CryptoJS.AES.encrypt('Your secret message', 'Your secret key').toString();
+        console.log('Encrypted message:', encryptedMessage);
+
+        // Example of using CryptoJS for decryption
+        var decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, 'Your secret key').toString(CryptoJS.enc.Utf8);
+        console.log('Decrypted message:', decryptedMessage);
     </script>
 </body>
 </html>
