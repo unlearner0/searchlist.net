@@ -1,30 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-  margin-left: 200px;
-  background: #5d9ab2 url("img_tree.png") no-repeat top left;
-}
-
-.center_div {
-  border: 1px solid gray;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  background-color: #d0f0f6;
-  text-align: left;
-  padding: 8px;
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            height: 100vh;
+            place-items: center;
+        }
+        button {
+            padding: 15px 25px;
+            border: 1px solid black;
+            background-color: #ee82ee;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: background-color linear 0.1s;
+        }
+        button:after {
+            content: "";
+            background-color: black;
+            left: 0;
+            top: 0;
+            transform: translate(2px, 2px);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -1;
+            border-radius: 4px;
+            border: 1px solid black;
+            transition: transform 0.1s linear;
+        }
+        button:hover {
+            background-color: #d675d6;
+            left: 1px;
+            top: 1px;
+        }
+        button:hover:after {
+            transform: translate(1px,1px);
+        }
+        button:active {
+            background-color: #be68be;
+            left: 2px;
+            top: 2px;
+        }
+        button:active:after {
+            transform: translate(0px,0px);
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <button id="myButton">Click-Me</button>
+    </div>
 
-<div class="center_div">
-  <h1>Hello World!</h1>
-  <p>This example contains some advanced CSS methods you may not have learned yet. But, we will explain these methods in a later chapter in the tutorial.</p>
-</div>
-
+    <script>
+        document.getElementById("myButton").addEventListener("click", function() {
+            window.location.href = "nextpage1.html"; // Redirect to nextpage1.html
+        });
+    </script>
 </body>
 </html>
-
